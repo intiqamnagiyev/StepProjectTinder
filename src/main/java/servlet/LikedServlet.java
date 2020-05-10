@@ -22,12 +22,7 @@ public class LikedServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     /*   final String content = new BufferedReader(new FileReader(new File("templates/people-list.html"))).lines()
-                .collect(Collectors.joining("\n"));
-        try( PrintWriter writer = resp.getWriter()){
-            writer.write(content);
-        }*/
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
 
         List<User> userList=userService.getLikedUsersList();
 

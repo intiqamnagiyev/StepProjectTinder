@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="img/favicon.ico">
+   <#-- <link rel="icon" href="img/favicon.ico">-->
 
     <title>People list</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -33,7 +33,7 @@
                                 <tr>
                                     <td width="10">
                                         <div class="avatar-img">
-                                            <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
+                                            <img class="img-circle" src="https://lh3.googleusercontent.com/proxy/l1nVZcWECkzk3w0oii9I4TENPO-uevhqzX3oHDiEdO5p3kIMbgqCRlgMWmbuSj2LuuzOWe0nvwarMWNduvoUrHLlBn7TqmFZIi8vE_P0Ti8eYApajlbgJLenVgKeAWXOwjDcInGvLOzQ_amON9o7a9m8sXw" />  
                                         </div>
 
                                     </td>
