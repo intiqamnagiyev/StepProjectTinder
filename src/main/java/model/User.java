@@ -11,6 +11,7 @@ public class User {
     private String job;
     private LocalDateTime lastLogin;
     private String password;
+    private String dayAgo;
 
     public User() {
     }
@@ -79,6 +80,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDayAgo() {
+        return dayAgo;
+    }
+
+    public void setDayAgo(String dayAgo) {
+        this.dayAgo = dayAgo;
     }
 
     @Override

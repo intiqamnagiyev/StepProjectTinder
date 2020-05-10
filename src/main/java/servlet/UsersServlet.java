@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class UsersServlet extends HttpServlet {
     private UserService userService;
@@ -26,11 +25,12 @@ public class UsersServlet extends HttpServlet {
 
         final HashMap<String, Object> data = new HashMap<>();
 
-        Optional<User> optionalUser= userService.getUnlikedUser();
+        Optional<User> optionalUser= userService.getDislikedUser();
         if (optionalUser.isEmpty()){
             resp.sendRedirect("/liked");
         }else {
             final User user = optionalUser.get();
+            data.put("user",user);
             engine.render("like-page.ftl", data, resp);
         }
 

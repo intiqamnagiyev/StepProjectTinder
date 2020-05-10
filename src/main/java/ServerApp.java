@@ -22,7 +22,7 @@ public class ServerApp {
         handler.addServlet(new ServletHolder(new StaticContentServlet("templates")), "/static/*");
 
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login/*");
-        handler.addServlet(new ServletHolder(new LikedServlet()),"/liked/*");
+        handler.addServlet(new ServletHolder(new LikedServlet(new UserServiceImpl(new UserRepositoryImpl()), engine)),"/liked/*");
         handler.addServlet(new ServletHolder(new UsersServlet(new UserServiceImpl(new UserRepositoryImpl()), engine)),"/users/*");
         handler.addServlet(new ServletHolder(new MessagesServlet()),"/messages/*");
 

@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -46,11 +48,12 @@ public class UserRepositoryImpl implements UserRepository {
         user.setPassword(rs.getString("password"));
         user.setJob(rs.getString("job"));
         user.setLastLogin(rs.getTimestamp("last_login").toLocalDateTime());
+        user.setDayAgo(rs.getString("day"));
         return user;
     }
 
     @Override
-    public Optional<User> getUnlikedUser() {
+    public Optional<User> getDisLikedUser() {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -73,5 +76,30 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return optionalUser;
 
+    }
+
+    @Override
+    public List<User> getLikedUsersList() {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        final ArrayList<User> users = new ArrayList<>();
+        try {
+            connection = DbConnection.getConnection();
+            connection.setAutoCommit(false);
+            ps = connection.prepareStatement(SqlQuerry.GET_ALL_LIKED_USERS);
+            ps.setLong(1, Session.getUser().getId());
+
+            rs = ps.executeQuery();
+            while (rs.next()){
+                User user= getUserFromResultSet(rs);
+                users.add(user);
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
     }
 }
