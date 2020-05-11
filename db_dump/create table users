@@ -1,0 +1,22 @@
+create table users
+(
+	id serial not null
+		constraint users_pk
+			primary key,
+	name varchar not null,
+	surname varchar not null,
+	job varchar,
+	last_login timestamp default now(),
+	password varchar not null,
+	status boolean default true,
+	email varchar not null
+);
+
+alter table users owner to intiqam;
+
+create unique index users_id_uindex
+	on users (id);
+
+create unique index users_email_uindex
+	on users (email);
+

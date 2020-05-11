@@ -10,6 +10,7 @@ import repository.impl.UserRepositoryImpl;
 import service.impl.UserServiceImpl;
 import servlet.*;
 import support.StaticContentServlet;
+import trash.UsersServlet;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;

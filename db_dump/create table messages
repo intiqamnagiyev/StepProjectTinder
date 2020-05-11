@@ -1,0 +1,20 @@
+create table messages
+(
+	id serial not null
+		constraint messages_pk
+			primary key,
+	"from" integer not null
+		constraint messages___fk_from
+			references users,
+	"to" integer not null
+		constraint messages___fk_to
+			references users,
+	context integer,
+	status boolean default true
+);
+
+alter table messages owner to intiqam;
+
+create unique index messages_id_uindex
+	on messages (id);
+

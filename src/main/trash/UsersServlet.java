@@ -1,7 +1,8 @@
-package servlet;
+package trash;
 
 import model.User;
 import service.UserService;
+import servlet.TemplateEngine;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,6 @@ public class UsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String id = req.getParameter("id");
         // todo add user liked userService
-
 
         resp.sendRedirect("users/");
     }
