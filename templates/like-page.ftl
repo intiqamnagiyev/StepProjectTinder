@@ -8,7 +8,8 @@
     <link rel="icon" href="img/favicon.ico">
 
     <title>Like page</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,19 +23,33 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12 text-center">
-                    <img src="https://robohash.org/68.186.255.198.png" alt="" class="mx-auto rounded-circle img-fluid">
-                    <h3 class="mb-0 text-truncated">${user.name}</h3>
+                    <img src=${user.photoLink} alt="" class="mx-auto rounded-circle img-fluid" width="200" height="200">
+                    <h3 class="mb-0 text-truncated">${user.name} </h3>
                     <br>
                 </div>
-                <form method="post" action="/users?id=${user.id}">
-                    <div class="col-12 col-lg-6">
-                        <button  class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</button>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <button  class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like</button>
-                    </div>
-                </form>
+                <div class="col-12 col-lg-6">
+                    <form method="post" action="/users?id=${user.id}&action=dislike">
+                        <button class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span>Dislike
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <form method="post" action="/users?id=${user.id}&action=like">
+                        <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like
+                        </button>
+                    </form>
+                </div>
                 <!--/col-->
+            </div>
+            <div class="col-12 col-lg-6">
+                <a href="/liked">
+                    <button class="btn btn-outline-success"><span class="fa fa-heart"></span> Liked
+                    </button>
+                </a>
+                <a href="/logout">
+                    <button class="btn btn-outline-success"><span class="fa fa-arrow-up"></span> Log out
+                    </button>
+                </a>
             </div>
             <!--/row-->
         </div>

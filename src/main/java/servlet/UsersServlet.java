@@ -1,14 +1,12 @@
-package trash;
+package servlet;
 
 import model.User;
 import service.UserService;
-import servlet.TemplateEngine;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -22,29 +20,30 @@ public class UsersServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         final HashMap<String, Object> data = new HashMap<>();
 
-        Optional<User> optionalUser= userService.getDislikedUser();
-        if (optionalUser.isEmpty()){
+        Optional<User> optionalUser = userService.getDislikedUser();
+
+        if (optionalUser.isEmpty()) {
             resp.sendRedirect("/liked");
-        }else {
+        } else {
             final User user = optionalUser.get();
-            data.put("user",user);
+            data.put("user", user);
             engine.render("like-page.ftl", data, resp);
         }
-
-
-
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String id = req.getParameter("id");
-        // todo add user liked userService
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        final int id = Integer.parseInt(req.getParameter("id"));
+        final String action = req.getParameter("action");
 
-        resp.sendRedirect("users/");
+        if (action.equalsIgnoreCase("like")) {
+            userService.like(id);
+        }
+        resp.sendRedirect("/users");
     }
 }

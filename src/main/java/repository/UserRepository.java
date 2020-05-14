@@ -11,4 +11,6 @@ public interface UserRepository {
     Optional<User> getDisLikedUser();
 
     List<User> getLikedUsersList();
+
+    void like(int id);
 }

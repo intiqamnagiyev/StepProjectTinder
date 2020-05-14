@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class LoginFilter implements Filter {
-private UserService userService;
+    private UserService userService;
 
     public LoginFilter(UserService userService) {
         this.userService = userService;
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -25,16 +25,18 @@ private UserService userService;
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
-        final Optional<User> userWithEmail = userService.getUserByEmail(request.getParameter("email"));
-       if (request.getMethod().equalsIgnoreCase("POST")){
-           if (userWithEmail.isPresent() && userWithEmail.get().getPassword().equalsIgnoreCase(request.getParameter("password"))){
-               Session.setUser(userWithEmail.get());
-               filterChain.doFilter(servletRequest, servletResponse);
 
-           }else {
-               response.sendRedirect("/login");
-           }
-       }else filterChain.doFilter(servletRequest, servletResponse);
+
+        if (request.getMethod().equalsIgnoreCase("POST")) {
+            final Optional<User> userWithEmail = userService.getUserByEmail(request.getParameter("email"));
+            if (userWithEmail.isPresent() && userWithEmail.get().getPassword().equalsIgnoreCase(request.getParameter("password"))) {
+                Session.setUser(userWithEmail.get());
+                filterChain.doFilter(servletRequest, servletResponse);
+
+            } else {
+                response.sendRedirect("/login");
+            }
+        } else filterChain.doFilter(servletRequest, servletResponse);
 
     }
 

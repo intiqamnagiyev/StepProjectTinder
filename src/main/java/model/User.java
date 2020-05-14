@@ -12,6 +12,7 @@ public class User {
     private LocalDateTime lastLogin;
     private String password;
     private String dayAgo;
+    private String photoLink;
 
     public User() {
     }
@@ -90,6 +91,15 @@ public class User {
         this.dayAgo = dayAgo;
     }
 
+    public String getPhotoLink() {
+        return photoLink;
+    }
+
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,6 +118,6 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User{id=%d, name='%s', surname='%s', email='%s', job='%s', lastLogin=%s, password='%s'}", id, name, surname, email, job, lastLogin, password);
+        return String.format("User{id=%d, name='%s', surname='%s', email='%s', job='%s', lastLogin=%s, password='%s', dayAgo='%s', photoLink='%s'}", id, name, surname, email, job, lastLogin, password, dayAgo, photoLink);
     }
 }

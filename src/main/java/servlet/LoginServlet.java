@@ -12,13 +12,14 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String content = new BufferedReader(new FileReader(new File("templates/login.html"))).lines()
                 .collect(Collectors.joining("\n"));
-        try(PrintWriter writer = resp.getWriter()){
+        try (PrintWriter writer = resp.getWriter()) {
             writer.write(content);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       resp.sendRedirect("/users");
+
+        resp.sendRedirect("/users");
     }
 }

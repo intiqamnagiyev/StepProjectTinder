@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getLikedUsersList() {
-        return userRepository.getLikedUsersList() ;
+        return userRepository.getLikedUsersList();
+    }
+
+    @Override
+    public void like(int id) {
+        userRepository.like(id);
     }
 }

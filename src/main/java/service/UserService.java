@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> getDislikedUser();
 
     List<User> getLikedUsersList();
+
+    void like(int id);
 }

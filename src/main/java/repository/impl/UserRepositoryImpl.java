@@ -20,16 +20,17 @@ public class UserRepositoryImpl implements UserRepository {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Optional<User> optionalUser =Optional.empty();
+        Optional<User> optionalUser = Optional.empty();
         try {
             connection = DbConnection.getConnection();
-            connection.setAutoCommit(false);
+
             ps = connection.prepareStatement(SqlQuerry.GET_USER_BY_EMAIL);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            while (rs.next()){
-              User user= getUserFromResultSet(rs);
-              optionalUser=Optional.of(user);
+
+            while (rs.next()) {
+                User user = getUserFromResultSet(rs);
+                optionalUser = Optional.of(user);
             }
 
 
@@ -49,6 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setJob(rs.getString("job"));
         user.setLastLogin(rs.getTimestamp("last_login").toLocalDateTime());
         user.setDayAgo(rs.getString("day"));
+        user.setPhotoLink(rs.getString("photo"));
         return user;
     }
 
@@ -57,17 +59,19 @@ public class UserRepositoryImpl implements UserRepository {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Optional<User> optionalUser =Optional.empty();
+        Optional<User> optionalUser = Optional.empty();
         try {
             connection = DbConnection.getConnection();
-            connection.setAutoCommit(false);
-            ps = connection.prepareStatement(SqlQuerry.GET_UNLIKED_USERS);
+
+
+            ps = connection.prepareStatement(SqlQuerry.GET_DISLIKED_USER);
             ps.setLong(1, Session.getUser().getId());
             ps.setLong(2, Session.getUser().getId());
+
             rs = ps.executeQuery();
-            while (rs.next()){
-                User user= getUserFromResultSet(rs);
-                optionalUser=Optional.of(user);
+            while (rs.next()) {
+                User user = getUserFromResultSet(rs);
+                optionalUser = Optional.of(user);
             }
 
 
@@ -86,13 +90,13 @@ public class UserRepositoryImpl implements UserRepository {
         final ArrayList<User> users = new ArrayList<>();
         try {
             connection = DbConnection.getConnection();
-            connection.setAutoCommit(false);
+
             ps = connection.prepareStatement(SqlQuerry.GET_ALL_LIKED_USERS);
             ps.setLong(1, Session.getUser().getId());
 
             rs = ps.executeQuery();
-            while (rs.next()){
-                User user= getUserFromResultSet(rs);
+            while (rs.next()) {
+                User user = getUserFromResultSet(rs);
                 users.add(user);
             }
 
@@ -101,5 +105,39 @@ public class UserRepositoryImpl implements UserRepository {
             throwables.printStackTrace();
         }
         return users;
+    }
+
+    @Override
+    public void like(int id) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+
+        try {
+            connection = DbConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            ps = connection.prepareStatement(SqlQuerry.INSERT_LIKED_USER);
+            ps.setLong(1, Session.getUser().getId());
+            ps.setLong(2, id);
+
+            final int i = ps.executeUpdate();
+
+        } catch (SQLException throwables) {
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            throwables.printStackTrace();
+        } finally {
+            try {
+                assert connection != null;
+                connection.commit();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
     }
 }
