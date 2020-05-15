@@ -42,7 +42,7 @@ public class MessagesServlet extends HttpServlet {
         final String message = req.getParameter("message");
         final int id = Integer.parseInt(req.getParameter("id"));
         if (!message.isEmpty() && !message.isBlank()) {
-
+            System.out.println(message);
             final long lastMessageId = messageService.save(message, Session.getUser().getId(), id);
         }
 
