@@ -8,9 +8,11 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> getUserByEmail(String email);
 
-    Optional<User> getDislikedUser();
+    Optional<User> getUserToShow(long id);
 
     List<User> getLikedUsersList();
 
     void like(int id);
+
+    void save(User user);
 }

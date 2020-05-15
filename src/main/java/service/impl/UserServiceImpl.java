@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getDislikedUser() {
-        return userRepository.getDisLikedUser();
+    public Optional<User> getUserToShow(long id) {
+        return userRepository.getUserToShow(id);
     }
 
     @Override
@@ -32,5 +32,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void like(int id) {
         userRepository.like(id);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

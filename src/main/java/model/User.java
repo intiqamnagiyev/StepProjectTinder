@@ -27,6 +27,15 @@ public class User {
         this.password = password;
     }
 
+    public User(String name, String surName, String photo, String job, String email, String password) {
+        this.name = name;
+        this.surname = surName;
+        this.email = email;
+        this.job = job;
+        this.photoLink = photo;
+        this.password = password;
+    }
+
     public long getId() {
         return id;
     }

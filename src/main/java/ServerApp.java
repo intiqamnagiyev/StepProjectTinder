@@ -33,6 +33,7 @@ public class ServerApp {
        handler.addServlet(new ServletHolder(new UsersServlet(new UserServiceImpl(new UserRepositoryImpl()), engine)),"/users/*");
         handler.addServlet(new ServletHolder(new MessagesServlet(engine, new MessageServiceImpl(new MessageRepositoryImpl()))),"/messages/*");
         handler.addServlet(LogoutServlet.class,"/logout/*");
+        handler.addServlet(new ServletHolder(new RegisterServlet(new UserServiceImpl(new UserRepositoryImpl()))),"/register/*");
 
         handler.addFilter( new FilterHolder(new LoginFilter(new UserServiceImpl(new UserRepositoryImpl()))),"/login/*",ft);
         handler.addFilter(LikedFilter.class,"/liked/*",ft);

@@ -55,7 +55,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> getDisLikedUser() {
+    public Optional<User> getUserToShow(long id) {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -65,8 +65,8 @@ public class UserRepositoryImpl implements UserRepository {
 
 
             ps = connection.prepareStatement(SqlQuerry.GET_DISLIKED_USER);
-            ps.setLong(1, Session.getUser().getId());
-            ps.setLong(2, Session.getUser().getId());
+            ps.setLong(1, id);
+            ps.setLong(2, id);
 
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -139,5 +139,41 @@ public class UserRepositoryImpl implements UserRepository {
             }
         }
 
+    }
+
+    @Override
+    public void save(User user) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+
+        try {
+            connection = DbConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            ps = connection.prepareStatement(SqlQuerry.SAVE_USER);
+            ps.setString(1,user.getName());
+            ps.setString(2,user.getSurname());
+            ps.setString(3,user.getJob());
+            ps.setString(4,user.getPassword());
+            ps.setString(5,user.getEmail());
+            ps.setString(6,user.getPhotoLink());
+            final int i = ps.executeUpdate();
+
+        } catch (SQLException throwables) {
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            throwables.printStackTrace();
+        } finally {
+            try {
+                assert connection != null;
+                connection.commit();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 }

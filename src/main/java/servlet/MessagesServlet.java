@@ -26,7 +26,7 @@ public class MessagesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         final int id = Integer.parseInt(req.getParameter("id"));
-      
+
 
         final List<Message> messages = messageService.get(Session.getUser().getId(), id);
 

@@ -29,5 +29,8 @@ public class SqlQuerry {
             "where m.from_user=?  and m.to_user =? or m.from_user=? and m.to_user=?  " +
             "order by insert_date";
 
+    public static final String SAVE_USER=" insert into users (name, surname, job, password, email, photo)  " +
+            "VALUES (?, ?, ?, ?, ?, ?) ";
+
 
 }

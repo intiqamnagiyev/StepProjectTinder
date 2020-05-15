@@ -1,5 +1,6 @@
 package servlet;
 
+import filter.Session;
 import model.User;
 import service.UserService;
 
@@ -24,7 +25,7 @@ public class UsersServlet extends HttpServlet {
 
         final HashMap<String, Object> data = new HashMap<>();
 
-        Optional<User> optionalUser = userService.getDislikedUser();
+        Optional<User> optionalUser = userService.getUserToShow(Session.getUser().getId());
 
         if (optionalUser.isEmpty()) {
             resp.sendRedirect("/liked");
