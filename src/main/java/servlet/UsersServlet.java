@@ -27,7 +27,7 @@ public class UsersServlet extends HttpServlet {
 
         Optional<User> optionalUser = userService.getUserToShow(Session.getUser().getId());
 
-        if (optionalUser.isEmpty()) {
+        if (optionalUser.isPresent()) {
             resp.sendRedirect("/liked");
         } else {
             final User user = optionalUser.get();

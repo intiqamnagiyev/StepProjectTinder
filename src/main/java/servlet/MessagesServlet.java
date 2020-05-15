@@ -41,7 +41,7 @@ public class MessagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         final String message = req.getParameter("message");
         final int id = Integer.parseInt(req.getParameter("id"));
-        if (!message.isEmpty() && !message.isBlank()) {
+        if (!message.isEmpty()) {
             System.out.println(message);
             final long lastMessageId = messageService.save(message, Session.getUser().getId(), id);
         }
