@@ -1,0 +1,1 @@
+web: java -jar target/StepProjectTinder-1.jar
