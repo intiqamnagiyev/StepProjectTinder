@@ -1,1 +1,1 @@
-web: java -jar target/StepProjectTinder-1.jar
+web java $JAVA_OPTS -jar webapp-runner.jar ${WEBAPP_RUNNER_OPTS} --port $PORT ./target/StepProjectTinder-1.0-SNAPSHOT.war
