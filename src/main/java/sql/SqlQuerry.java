@@ -22,7 +22,7 @@ public class SqlQuerry {
 
     public static final String INSERT_MESSAGE = "insert into messages (from_user, to_user, content) VALUES (?, ?, ?)";
 
-    public static final String GET_MESSAGES = "select  * from " +
+    public static final String GET_MESSAGES = "select m.from_user, concat(t.name,' ',t.surname) full_name, m.content from " +
             " messages m " +
             "join users f on f.id=m.from_user " +
             "join users t on t.id= m.to_user " +
@@ -32,5 +32,7 @@ public class SqlQuerry {
     public static final String SAVE_USER=" insert into users (name, surname, job, password, email, photo)  " +
             "VALUES (?, ?, ?, ?, ?, ?) ";
 
+    public static final String GET_USER_BY_ID= "select *, null as day, null as password from " +
+            "users where id= ?";
 
 }

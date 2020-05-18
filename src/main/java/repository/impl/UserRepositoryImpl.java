@@ -13,13 +13,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> getUserByEmail(String email) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        Connection connection;
+        PreparedStatement ps;
+        ResultSet rs;
         Optional<User> optionalUser = Optional.empty();
         try {
             connection = DbConnection.getConnection();
@@ -110,7 +111,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void like(int id) {
         Connection connection = null;
-        PreparedStatement ps = null;
+        PreparedStatement ps ;
 
         try {
             connection = DbConnection.getConnection();
@@ -120,23 +121,17 @@ public class UserRepositoryImpl implements UserRepository {
             ps.setLong(1, Session.getUser().getId());
             ps.setLong(2, id);
 
-            final int i = ps.executeUpdate();
-
-        } catch (SQLException throwables) {
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException sqlException) {
             try {
-                assert connection != null;
-                connection.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
-        } finally {
-            try {
-                assert connection != null;
-                connection.commit();
+                if (connection != null) {
+                    connection.rollback();
+                }
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                throw new RuntimeException("smth wet wrong");
             }
+            throw new RuntimeException("smth wet wrong");
         }
 
     }
@@ -151,29 +146,59 @@ public class UserRepositoryImpl implements UserRepository {
             connection.setAutoCommit(false);
 
             ps = connection.prepareStatement(SqlQuerry.SAVE_USER);
-            ps.setString(1,user.getName());
-            ps.setString(2,user.getSurname());
-            ps.setString(3,user.getJob());
-            ps.setString(4,user.getPassword());
-            ps.setString(5,user.getEmail());
-            ps.setString(6,user.getPhotoLink());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getSurname());
+            ps.setString(3, user.getJob());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, user.getPhotoLink());
             final int i = ps.executeUpdate();
 
-        } catch (SQLException throwables) {
+        } catch (SQLException sqlException) {
             try {
-                assert connection != null;
-                connection.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException sx) {
+                throw new RuntimeException("smth wet wrong");
             }
-            throwables.printStackTrace();
+            throw new RuntimeException("smth wet wrong");
         } finally {
             try {
-                assert connection != null;
-                connection.commit();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                assert ps != null;
+                ps.close();
+                connection.close();
+            } catch (SQLException sqlException) {
+                throw new RuntimeException("smth wet wrong");
             }
+
         }
     }
+
+    @Override
+    public Optional<User> get(long id) {
+
+        Connection connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        Optional<User> optionalUser = Optional.empty();
+        try {
+            connection = DbConnection.getConnection();
+
+            ps = connection.prepareStatement(SqlQuerry.GET_USER_BY_ID);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                User user = getUserFromResultSet(rs);
+                optionalUser = Optional.of(user);
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return optionalUser;
+    }
 }
+

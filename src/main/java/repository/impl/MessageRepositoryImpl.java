@@ -36,23 +36,12 @@ public class MessageRepositoryImpl implements MessageRepository {
                 }
             }
 
+            connection.commit();
+        } catch (SQLException sqlException) {
 
-        } catch (SQLException throwables) {
-            try {
-                assert connection != null;
-                connection.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
-        } finally {
-            try {
-                assert connection != null;
-                connection.commit();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            throw  new RuntimeException("smth went wrong");
         }
+
         return id;
     }
 
@@ -72,11 +61,11 @@ public class MessageRepositoryImpl implements MessageRepository {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Message message = getMessageFromResultSet(rs);
-                message.setWriteTo(to);
                 messages.add(message);
             }
         } catch (SQLException x) {
-            throw new RuntimeException("smth went wrong");
+            x.printStackTrace();
+           // throw new RuntimeException("smth went wrong");
         }
         return messages;
     }
@@ -84,6 +73,7 @@ public class MessageRepositoryImpl implements MessageRepository {
     private Message getMessageFromResultSet(ResultSet rs) throws SQLException {
         final Message message = new Message();
         final long from_user = rs.getLong("from_user");
+        message.setWriteTo(rs.getString("full_name"));
         message.setType(from_user== Session.getUser().getId()?"sent":"received");
         message.setMessage(rs.getString("content"));
         return message;

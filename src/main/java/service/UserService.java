@@ -4,6 +4,7 @@ import model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public interface UserService {
     Optional<User> getUserByEmail(String email);
@@ -15,4 +16,6 @@ public interface UserService {
     void like(int id);
 
     void save(User user);
+
+    Optional<User> get(long id);
 }

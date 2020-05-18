@@ -6,6 +6,7 @@ import service.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
@@ -37,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> get(long id) {
+        return userRepository.get(id);
     }
 }
