@@ -8,8 +8,6 @@
     <artifactId>StepProjectTinder</artifactId>
     <version>1</version>
 
-    <packaging>jar</packaging>
-
     <name>Tinder</name>
     <description>
         Tinder project is web based car dating portal
@@ -32,8 +30,23 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version> 2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/deps
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -109,7 +122,6 @@
             <artifactId>jersey-media-json-binding</artifactId>
             <version>2.30.1</version>
         </dependency>
-
 
     </dependencies>
 </project>

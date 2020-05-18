@@ -1,1 +1,1 @@
-web java $JAVA_OPTS -jar webapp-runner.jar ${WEBAPP_RUNNER_OPTS} --port $PORT ./target/StepProjectTinder-1.0-SNAPSHOT.war
+web: java $JAVA_OPTS -cp ./target/classes:target/deps/* org.example.StepApp
