@@ -21,7 +21,7 @@ public class ServerApp {
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8080);
+        Server server = new Server(HerokuEnv.port());
         ServletContextHandler handler = new ServletContextHandler();
 
         TemplateEngine engine = TemplateEngine.folder("./templates");
