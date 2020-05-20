@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-   <#-- <link rel="icon" href="img/favicon.ico">-->
+    <#-- <link rel="icon" href="img/favicon.ico">-->
 
     <title>Like page</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
@@ -29,28 +29,33 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <form method="post" action="/users?id=${user.id}&action=dislike">
-                        <button class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span>Dislike
-                        </button>
+                       <#-- <button class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span>Dislike
+                        </button>-->
+                        <button type="submit" name="dislike" class="btn btn-outline-danger btn-block">
+                            <span class="fa fa-times"></span> Dislike</button>
                     </form>
                 </div>
                 <div class="col-12 col-lg-6">
                     <form method="post" action="/users?id=${user.id}&action=like">
-                        <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like
-                        </button>
+                       <#-- <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like
+                        </button>-->
+                        <button type="submit" class="btn btn-outline-success btn-block"><span
+                                    class="fa fa-heart"></span> Like</button>
                     </form>
                 </div>
+                <div class="col-12 col-lg-6">
+                    <a href="/liked">
+                        <button type="submit" class="btn btn-outline-success btn-block"><span
+                                    class="fa fa-heart"></span> Liked</button>
+                    </a>
+                </div>
+                <div class="col-12 col-lg-6"> <a href="/logout">
+                        <button type="submit" class="btn btn-outline-success btn-block"><span
+                                    class="fa fa-arrow-up"></span> Logout</button>
+                    </a></div>
                 <!--/col-->
             </div>
-            <div class="col-12 col-lg-6">
-                <a href="/liked">
-                    <button class="btn btn-outline-success"><span class="fa fa-heart"></span> Liked
-                    </button>
-                </a>
-                <a href="/logout">
-                    <button class="btn btn-outline-success"><span class="fa fa-arrow-up"></span> Log out
-                    </button>
-                </a>
-            </div>
+
             <!--/row-->
         </div>
         <!--/card-block-->

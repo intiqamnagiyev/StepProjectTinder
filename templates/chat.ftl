@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-   <#-- <link rel="icon" href="img/favicon.ico">-->
+    <#-- <link rel="icon" href="img/favicon.ico">-->
 
     <title>Chat</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
@@ -49,26 +49,26 @@
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
                         <#list messages as message>
-                         <#if message.type=="sent" >
-                            <li class="send-msg float-right mb-2">
-                                <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                   ${message.message}<br>
-                                </p>
-                            </li>
-                         </#if>
-                            <#if  message.type=="received">
-                            <li class="receive-msg float-left mb-2">
-                                <div class="sender-img">
-                                    <img src="http://nicesnippets.com/demo/image1.jpg" class="float-left">
-                                </div>
-                                <div class="receive-msg-desc float-left ml-2">
-                                    <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
+                            <#if message.type=="sent" >
+                                <li class="send-msg float-right mb-2">
+                                    <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
                                         ${message.message}<br>
-
                                     </p>
-                                    <span class="receive-msg-time">ketty, Jan 25, 6:20 PM</span>
-                                </div>
-                            </li>
+                                </li>
+                            </#if>
+                            <#if  message.type=="received">
+                                <li class="receive-msg float-left mb-2">
+                                    <div class="sender-img">
+                                        <img src=${writeToUser.photoLink} class="float-left">
+                                    </div>
+                                    <div class="receive-msg-desc float-left ml-2">
+                                        <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
+                                            ${message.message}<br>
+
+                                        </p>
+                                        <span class="receive-msg-time">${writeToUser.name} , Jan 25, 6:20 PM</span>
+                                    </div>
+                                </li>
                             </#if>
                         </#list>
                     </ul>

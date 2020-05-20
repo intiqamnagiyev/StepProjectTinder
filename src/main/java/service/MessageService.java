@@ -1,10 +1,22 @@
 package service;
 
-import model.Message;
+import dao.DaoMessage;
+import entity.Message;
 
 import java.util.List;
 
-public interface MessageService {
-    long save(String message,long from, long to);
-    List<Message> get(long from, long to);
+public class MessageService {
+    private DaoMessage<Message> daoMessage;
+
+    public MessageService(DaoMessage<Message> daoMessage) {
+        this.daoMessage = daoMessage;
+    }
+
+    public void  save(String content, long from, long to){
+
+        daoMessage.save(new Message(from,to,content));
+    }
+   public List<Message> getAll(long fromId, long toId){
+      return daoMessage.getAll(fromId, toId);
+    }
 }

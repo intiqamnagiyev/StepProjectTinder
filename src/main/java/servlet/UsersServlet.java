@@ -1,7 +1,6 @@
 package servlet;
 
-import filter.Session;
-import model.User;
+import entity.User;
 import service.UserService;
 
 import javax.servlet.http.HttpServlet;
@@ -43,7 +42,7 @@ public class UsersServlet extends HttpServlet {
         final String action = req.getParameter("action");
 
         if (action.equalsIgnoreCase("like")) {
-            userService.like(id);
+           userService.like(Session.getUser().getId(),id);
         }
         resp.sendRedirect("/users");
     }

@@ -67,7 +67,7 @@
                                 </button>
                             </a>
                             <a href="/logout">
-                                <button class="btn btn-outline-success"><span class="fa fa-arrow-up"></span> Log out
+                                <button class="btn btn-danger"><span class="fa fa-arrow-up"></span> Log out
                                 </button>
                             </a>
 

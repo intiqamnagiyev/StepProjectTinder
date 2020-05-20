@@ -1,21 +1,40 @@
 package service;
 
-import model.User;
+import dao.DAOUser;
+import entity.User;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
-public interface UserService {
-    Optional<User> getUserByEmail(String email);
+public class UserService {
+private DAOUser<User> dao;
 
-    Optional<User> getUserToShow(long id);
+    public UserService(DAOUser<User> dao) {
+        this.dao = dao;
+    }
 
-    List<User> getLikedUsersList();
+   public void save(User user){
+        dao.save(user);
+    }
 
-    void like(int id);
+    public Optional<User> getUserByEmail(String email) {
 
-    void save(User user);
+        return dao.getUserByEmail(email);
+    }
 
-    Optional<User> get(long id);
+    public Optional<User> getUserToShow(long id) {
+        return dao.getUserToShow(id);
+    }
+
+    public void like(long who_id, int whom_id) {
+        dao.like(who_id, whom_id);
+    }
+
+    public List<User> getLikedUsersList(long id) {
+        return dao.getLikedUsersList(id);
+    }
+
+    public Optional<User> get(int id) {
+        return dao.get(id);
+    }
 }

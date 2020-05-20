@@ -1,7 +1,9 @@
-package model;
+package entity;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+
+
+
 
 public class User {
     private long id;
@@ -17,23 +19,21 @@ public class User {
     public User() {
     }
 
-    public User(long id, String name, String surname, String email, String job, LocalDateTime lastLogin, String password) {
-        this.id = id;
+    public User(String name, String surname, String photo, String job, String email, String password) {
+
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.job = job;
-        this.lastLogin = lastLogin;
         this.password = password;
+        this.photoLink = photo;
     }
 
-    public User(String name, String surName, String photo, String job, String email, String password) {
-        this.name = name;
-        this.surname = surName;
-        this.email = email;
-        this.job = job;
-        this.photoLink = photo;
-        this.password = password;
+    public User(long id, String name, String surname, String email, String job, LocalDateTime lastLogin, String password, String dayAgo, String photoLink) {
+        this(name, surname, photoLink, job, email, password);
+        this.id = id;
+        this.lastLogin = lastLogin;
+        this.dayAgo = dayAgo;
     }
 
     public long getId() {
@@ -106,23 +106,6 @@ public class User {
 
     public void setPhotoLink(String photoLink) {
         this.photoLink = photoLink;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(surname, user.surname) &&
-                Objects.equals(email, user.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, surname, email);
     }
 
     @Override

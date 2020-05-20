@@ -1,6 +1,6 @@
 package servlet;
 
-import model.User;
+import entity.User;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String content = new BufferedReader(new FileReader(new File("templates/index.html")))
                 .lines().collect(Collectors.joining("\n"));
-        try(final PrintWriter writer = resp.getWriter()){
+        try (final PrintWriter writer = resp.getWriter()) {
             writer.write(content);
         }
     }
@@ -35,7 +35,9 @@ public class RegisterServlet extends HttpServlet {
         final String email = req.getParameter("email");
         final String password = req.getParameter("password");
         final User user = new User(name, surName, photo, job, email, password);
+
         userService.save(user);
         resp.sendRedirect("/login");
+
     }
 }

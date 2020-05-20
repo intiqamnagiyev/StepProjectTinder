@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="postgres@localhost" uuid="c4fbd526-accf-428c-a1ca-2e4c81ecc22e">
+    <data-source source="LOCAL" name="d73npims32mpl0@ec2-34-230-149-169.compute-1.amazonaws.com" uuid="3b0bd6af-4424-4763-aa4e-b774de0404e1">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://ec2-34-230-149-169.compute-1.amazonaws.com:5432/d73npims32mpl0</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="ddfp5grs71qhi6@ec2-54-175-117-212.compute-1.amazonaws.com" uuid="c31b647f-c28a-4a5c-b45f-e7dc259c6d87">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-175-117-212.compute-1.amazonaws.com:5432/ddfp5grs71qhi6</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="db59vk266kg66q@ec2-34-232-147-86.compute-1.amazonaws.com" uuid="b5a2cf54-770e-493f-a646-1ee5ea394c92">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-34-232-147-86.compute-1.amazonaws.com:5432/db59vk266kg66q</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="ddauoa8c7c0rq4@ec2-54-86-170-8.compute-1.amazonaws.com" uuid="00229385-0208-43f8-98b4-302058ee1e42">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-86-170-8.compute-1.amazonaws.com:5432/ddauoa8c7c0rq4</jdbc-url>
     </data-source>
   </component>
 </project>
