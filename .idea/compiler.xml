@@ -8,7 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="StepProjectTinder" />
-        <module name="TinderProject" />
+        <module name="StepProjectTinder" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
