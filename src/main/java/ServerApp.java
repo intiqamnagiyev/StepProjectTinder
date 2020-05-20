@@ -1,5 +1,6 @@
 import dao.MessageDao;
 import dao.UserDao;
+import db.ConnDetails;
 import db.DbConn;
 import db.DbSetup;
 import filter.LikedFilter;
@@ -24,10 +25,10 @@ public class ServerApp {
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-        //DbSetup.migrate(ConnDetails.url, ConnDetails.username, ConnDetails.password);
-        //  Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
+       // DbSetup.migrate(ConnDetails.url, ConnDetails.username, ConnDetails.password);
+        //Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
 
-        DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+       DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
         Connection connection = DbConn.createFromURL(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
 
         Server server = new Server(HerokuEnv.port());

@@ -23,13 +23,17 @@ public class LikedServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        List<User> userList = userService.getLikedUsersList(Session.getUser().getId());
-        if (!userList.isEmpty()) {
-            final Map<String, Object> data = new HashMap<>();
-            data.put("userlist", userList);
-            engine.render("people-list.ftl", data, resp);
-        } else resp.sendRedirect("/users");
+            try {
+                List<User> userList = userService.getLikedUsersList(Session.getUser().getId());
+                if (!userList.isEmpty()) {
+                    final Map<String, Object> data = new HashMap<>();
+                    data.put("userlist", userList);
+                    engine.render("people-list.ftl", data, resp);
+                } else resp.sendRedirect("/users");
+            }catch (Exception e){
+                //todo loggin
+                //redirect error page (Internal server error, Not Found, Forbidden)
+            }
 
 
     }
