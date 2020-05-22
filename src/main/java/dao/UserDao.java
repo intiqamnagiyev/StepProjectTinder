@@ -11,19 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDao implements DAOUser<User> {
-    private Connection connection;
+    private final Connection connection;
 
     public UserDao(Connection connection) {
         this.connection = connection;
     }
 
+
     @Override
     public void save(User user) {
         PreparedStatement ps;
         try {
-            /**
-             *  (name, surname, job, password, email, photo)
-             * */
             connection.setAutoCommit(false);
             ps = connection.prepareStatement(SqlQuery.SAVE_USER);
             ps.setString(1, user.getName());
@@ -38,8 +36,9 @@ public class UserDao implements DAOUser<User> {
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                throw new RuntimeException("smth went wrong");
             }
+
             throw new RuntimeException("smth went wrong");
         }
     }
@@ -56,8 +55,7 @@ public class UserDao implements DAOUser<User> {
                     getUserFromResultSet(rs)
             );
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("smth went wrong");
+            return Optional.empty();
         }
 
     }
@@ -89,7 +87,7 @@ public class UserDao implements DAOUser<User> {
                     getUserFromResultSet(rs)
             );
         } catch (SQLException e) {
-            throw new RuntimeException("smth went wrong");
+            return Optional.empty();
         }
 
     }
@@ -127,27 +125,27 @@ public class UserDao implements DAOUser<User> {
                 users.add(getUserFromResultSet(rs));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("smth went wrong");
+            return new ArrayList<>();
         }
         return users;
     }
 
     @Override
-    public Optional<User> get(int id) {
-            PreparedStatement ps;
-            ResultSet rs;
-            try {
-                ps = connection.prepareStatement(SqlQuery.GET_USER_BY_ID);
-                ps.setLong(1, id);
-                rs = ps.executeQuery();
-                return !rs.next() ? Optional.empty() : Optional.of(
-                        getUserFromResultSet(rs)
-                );
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new RuntimeException("smth went wrong");
-            }
-
+    public Optional<User> get(long id) {
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps = connection.prepareStatement(SqlQuery.GET_USER_BY_ID);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            return !rs.next() ? Optional.empty() : Optional.of(
+                    getUserFromResultSet(rs)
+            );
+        } catch (SQLException e) {
+            return Optional.empty();
         }
+
     }
+
+}
 

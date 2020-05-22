@@ -5,15 +5,16 @@ import entity.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserService {
-private DAOUser<User> dao;
+    private final DAOUser<User> dao;
 
     public UserService(DAOUser<User> dao) {
         this.dao = dao;
     }
 
-   public void save(User user){
+    public void save(User user) {
         dao.save(user);
     }
 
@@ -34,7 +35,16 @@ private DAOUser<User> dao;
         return dao.getLikedUsersList(id);
     }
 
-    public Optional<User> get(int id) {
+    public Optional<User> get(long id) {
         return dao.get(id);
+    }
+
+    public boolean checkPermission(long activeUseId, long id) {
+
+        return dao.getLikedUsersList(activeUseId)
+                .stream()
+                .map(User::getId)
+                .collect(Collectors.toList())
+                .contains(id);
     }
 }

@@ -41,7 +41,7 @@ public class TemplateEngine {
         }
 
     }
-    public void render(String templateFile, HttpServletResponse resp) throws IOException {
+    public void render(String templateFile, HttpServletResponse resp)  {
         render(templateFile, new HashMap<>(), resp);
     }
 }

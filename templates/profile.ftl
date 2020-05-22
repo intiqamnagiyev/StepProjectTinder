@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/static/images/tinderIcon.jpg">
 
-    <title>Like page</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
@@ -23,36 +23,38 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12 text-center">
+                    <h2>  My Profile</h2>
                     <img src=${user.photoLink} alt="" class="mx-auto rounded-circle img-fluid" width="200" height="200">
-                    <h3 class="mb-0 text-truncated">${user.name} &nbsp; ${user.job}</h3>
+                    <h3 class="mb-0 text-truncated">${user.name} &nbsp;${user.job} </h3>
                     <br>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <form method="post" action="/users?id=${user.id}&action=dislike">
-                       <#-- <button class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span>Dislike
-                        </button>-->
-                        <button type="submit" name="dislike" class="btn btn-outline-danger btn-block">
-                            <span class="fa fa-times"></span> Dislike</button>
-                    </form>
+                    <a href="/users">
+                        <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Find Love
+                        </button>
+                    </a>
+
                 </div>
                 <div class="col-12 col-lg-6">
-                    <form method="post" action="/users?id=${user.id}&action=like">
-                       <#-- <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like
-                        </button>-->
-                        <button type="submit" class="btn btn-outline-success btn-block"><span
-                                    class="fa fa-heart"></span> Like</button>
-                    </form>
+
+                        <button  class="btn btn-outline-success btn-block"><span
+                                    class="fa fa-heart"></span> ....
+                        </button>
                 </div>
                 <div class="col-12 col-lg-6">
                     <a href="/liked">
                         <button type="submit" class="btn btn-outline-success btn-block"><span
-                                    class="fa fa-heart"></span> Liked</button>
+                                    class="fa fa-heart"></span> Liked
+                        </button>
                     </a>
                 </div>
-                <div class="col-12 col-lg-6"> <a href="/logout">
+                <div class="col-12 col-lg-6">
+                    <a href="/logout">
                         <button type="submit" class="btn btn-outline-success btn-block"><span
-                                    class="fa fa-arrow-up"></span> Logout</button>
-                    </a></div>
+                                    class="fa fa-arrow-up"></span> Logout
+                        </button>
+                    </a>
+                </div>
                 <!--/col-->
             </div>
 

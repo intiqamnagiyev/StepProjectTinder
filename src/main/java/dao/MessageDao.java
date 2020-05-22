@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageDao implements DaoMessage<Message> {
-    private Connection connection;
+    private final Connection connection;
 
     public MessageDao(Connection connection) {
         this.connection = connection;
@@ -30,7 +30,7 @@ public class MessageDao implements DaoMessage<Message> {
                messages.add(new Message(rs.getLong("from_user")==fromId?"sent":"received",rs.getString("content")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return new ArrayList<>();
         }
         return messages;
     }
@@ -47,11 +47,10 @@ public class MessageDao implements DaoMessage<Message> {
             ps.executeUpdate();
             connection.commit();
         }catch (SQLException e) {
-            e.printStackTrace();
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+               throw new RuntimeException();
             }
         }
 

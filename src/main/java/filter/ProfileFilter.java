@@ -6,9 +6,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LikedFilter implements Filter {
+public class ProfileFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig)  {
+    public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 

@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class UsersServlet extends HttpServlet {
-    private UserService userService;
-    private TemplateEngine engine;
+    private final UserService userService;
+    private final TemplateEngine engine;
 
     public UsersServlet(UserService userService, TemplateEngine engine) {
         this.userService = userService;

@@ -1,12 +1,10 @@
 package servlet;
 
-import servlet.Session;
 import entity.Message;
 import entity.User;
 import service.MessageService;
 import service.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,25 +26,30 @@ public class MessagesServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         final int id = Integer.parseInt(req.getParameter("id"));
-        final List<Message> messages = messageService.getAll(Session.getUser().getId(), id);
-            //todo check user liked
-        Optional<User> optionalUser =userService.get(id);
 
-        final HashMap<String, Object> data = new HashMap<>();
-        data.put("messages", messages);
+        boolean valid = userService.checkPermission(Session.getUser().getId(), id);
 
-        optionalUser.ifPresent(op->{
-            data.put("writeToUser",optionalUser.get());
-            data.put("id", id);
-        });
-        engine.render("chat.ftl", data, resp);
+        if (valid) {
+            Optional<User> optionalUser = userService.get(id);
+            final HashMap<String, Object> data = new HashMap<>();
+            final List<Message> messages = messageService.getAll(Session.getUser().getId(), id);
+            data.put("messages", messages);
+            if (optionalUser.isPresent()) {
+                data.put("writeToUser", optionalUser.get());
+                data.put("id", id);
+                engine.render("chat.ftl", data, resp);
+            } else {
+                resp.sendRedirect("/liked");
+            }
+        } else resp.sendRedirect("/liked");
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String message = req.getParameter("message");
         final int id = Integer.parseInt(req.getParameter("id"));
 

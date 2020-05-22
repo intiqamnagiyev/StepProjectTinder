@@ -3,10 +3,7 @@ import dao.UserDao;
 import db.ConnDetails;
 import db.DbConn;
 import db.DbSetup;
-import filter.LikedFilter;
-import filter.LoginFilter;
-import filter.MessagesFilter;
-import filter.UsersFilter;
+import filter.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,17 +16,15 @@ import support.StaticContentServlet;
 import javax.servlet.DispatcherType;
 import java.sql.Connection;
 import java.util.EnumSet;
-
-
-public class ServerApp {
+public class TinderApp {
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-       // DbSetup.migrate(ConnDetails.url, ConnDetails.username, ConnDetails.password);
-        //Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
+        DbSetup.migrate(ConnDetails.url, ConnDetails.username, ConnDetails.password);
+      Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
 
-       DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
-        Connection connection = DbConn.createFromURL(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+      //DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+        //Connection connection = DbConn.createFromURL(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
 
         Server server = new Server(HerokuEnv.port());
         TemplateEngine engine = TemplateEngine.folder("./templates");
@@ -44,12 +39,14 @@ public class ServerApp {
                 new MessageService(new MessageDao(connection)),
                 new UserService(new UserDao(connection)))), "/messages");
         handler.addServlet(LogoutServlet.class, "/logout");
-
+        handler.addServlet(new ServletHolder(new ProfileServlet(new UserService(new UserDao(connection)),engine)),"/me");
 
         handler.addFilter(new FilterHolder(new LoginFilter(new UserService(new UserDao(connection)))), "/login/*", ft);
         handler.addFilter(new FilterHolder(new UsersFilter()), "/users/*", ft);
         handler.addFilter(LikedFilter.class, "/liked", ft);
         handler.addFilter(MessagesFilter.class, "/messages", ft);
+        handler.addFilter(ProfileFilter.class, "/me", ft);
+
         handler.addServlet(RedirectServlet.class, "/*");
         server.setHandler(handler);
         server.start();

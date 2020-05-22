@@ -1,6 +1,5 @@
 package servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +20,12 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         /*final Cookie[] cookies = req.getCookies();
         for(Cookie c: cookies){
             System.out.printf("name:%s, value:%s\n",c.getName(), c.getValue());
         }*/
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/me");
     }
 }

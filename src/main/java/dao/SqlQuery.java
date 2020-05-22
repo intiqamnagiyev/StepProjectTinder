@@ -35,4 +35,5 @@ public class SqlQuery {
     public static final String GET_USER_BY_ID= "select *, null as day, null as password from " +
             "users where id= ?";
 
+
 }

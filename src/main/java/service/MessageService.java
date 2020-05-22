@@ -6,7 +6,7 @@ import entity.Message;
 import java.util.List;
 
 public class MessageService {
-    private DaoMessage<Message> daoMessage;
+    private final DaoMessage<Message> daoMessage;
 
     public MessageService(DaoMessage<Message> daoMessage) {
         this.daoMessage = daoMessage;

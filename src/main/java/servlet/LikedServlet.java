@@ -6,15 +6,14 @@ import service.UserService;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 public class LikedServlet extends HttpServlet {
-    private UserService userService;
-    private TemplateEngine engine;
+    private final UserService userService;
+    private final TemplateEngine engine;
 
     public LikedServlet(UserService userService, TemplateEngine engine) {
         this.userService = userService;
@@ -22,7 +21,7 @@ public class LikedServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
             try {
                 List<User> userList = userService.getLikedUsersList(Session.getUser().getId());
                 if (!userList.isEmpty()) {
