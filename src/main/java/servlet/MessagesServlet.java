@@ -42,9 +42,9 @@ public class MessagesServlet extends HttpServlet {
                 data.put("id", id);
                 engine.render("chat.ftl", data, resp);
             } else {
-                resp.sendRedirect("/liked");
+                resp.sendRedirect("/liked/");
             }
-        } else resp.sendRedirect("/liked");
+        } else resp.sendRedirect("/liked/");
 
     }
 
@@ -54,7 +54,6 @@ public class MessagesServlet extends HttpServlet {
         final int id = Integer.parseInt(req.getParameter("id"));
 
         if (!message.isEmpty()) {
-            System.out.println(message);
             messageService.save(message, Session.getUser().getId(), id);
         }
 

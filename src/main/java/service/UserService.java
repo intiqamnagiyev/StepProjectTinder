@@ -47,4 +47,9 @@ public class UserService {
                 .collect(Collectors.toList())
                 .contains(id);
     }
+
+    public void reset() {
+
+        dao.reset();
+    }
 }

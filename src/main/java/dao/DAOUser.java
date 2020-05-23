@@ -14,6 +14,7 @@ public interface DAOUser<A> {
     List<A> getLikedUsersList(long id);
 
     Optional<A> get(long id);
+    void reset();
 
 
 }

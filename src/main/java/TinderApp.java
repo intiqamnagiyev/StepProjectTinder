@@ -21,33 +21,37 @@ public class TinderApp {
 
     public static void main(String[] args) throws Exception {
         DbSetup.migrate(ConnDetails.url, ConnDetails.username, ConnDetails.password);
-      Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
+        Connection connection = DbConn.create(ConnDetails.url, ConnDetails.username, ConnDetails.password);
 
-      //DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
-        //Connection connection = DbConn.createFromURL(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+//      DbSetup.migrate(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+//        Connection connection = DbConn.createFromURL(HerokuEnv.jdbc_url(), HerokuEnv.jdbc_username(), HerokuEnv.jdbc_password());
+
+        final UserService userService = new UserService(new UserDao(connection));
+        final MessageService messageService = new MessageService(new MessageDao(connection));
 
         Server server = new Server(HerokuEnv.port());
         TemplateEngine engine = TemplateEngine.folder("./templates");
 
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(new ServletHolder(new StaticContentServlet("./templates")), "/static/*");
-        handler.addServlet(new ServletHolder(new RegisterServlet(new UserService(new UserDao(connection)))), "/register");
+        handler.addServlet(new ServletHolder(new RegisterServlet(userService)), "/register/*");
         handler.addServlet(LoginServlet.class, "/login/*");
-        handler.addServlet(new ServletHolder(new UsersServlet(new UserService(new UserDao(connection)), engine)), "/users");
-        handler.addServlet(new ServletHolder(new LikedServlet(new UserService(new UserDao(connection)), engine)), "/liked");
-        handler.addServlet(new ServletHolder(new MessagesServlet(engine,
-                new MessageService(new MessageDao(connection)),
-                new UserService(new UserDao(connection)))), "/messages");
-        handler.addServlet(LogoutServlet.class, "/logout");
-        handler.addServlet(new ServletHolder(new ProfileServlet(new UserService(new UserDao(connection)),engine)),"/me");
+        handler.addServlet(new ServletHolder(new UsersServlet(userService, engine)), "/users/*");
+        handler.addServlet(new ServletHolder(new LikedServlet(userService, engine)), "/liked/*");
+        handler.addServlet(new ServletHolder(new MessagesServlet(engine,messageService,userService)), "/messages/*");
+        handler.addServlet(LogoutServlet.class, "/logout/*");
+        handler.addServlet(new ServletHolder(new ProfileServlet(userService,engine)),"/me/*");
+        handler.addServlet(new ServletHolder(new ResetServlet(userService, messageService)),"/reset/*");
 
-        handler.addFilter(new FilterHolder(new LoginFilter(new UserService(new UserDao(connection)))), "/login/*", ft);
+
+        handler.addFilter(new FilterHolder(new LoginFilter(userService)), "/login/*", ft);
         handler.addFilter(new FilterHolder(new UsersFilter()), "/users/*", ft);
-        handler.addFilter(LikedFilter.class, "/liked", ft);
-        handler.addFilter(MessagesFilter.class, "/messages", ft);
-        handler.addFilter(ProfileFilter.class, "/me", ft);
+        handler.addFilter(LikedFilter.class, "/liked/*", ft);
+        handler.addFilter(MessagesFilter.class, "/messages/*", ft);
+        handler.addFilter(ProfileFilter.class, "/me/*", ft);
 
-        handler.addServlet(RedirectServlet.class, "/*");
+       handler.addServlet(RedirectServlet.class, "/*");
+
         server.setHandler(handler);
         server.start();
         server.join();

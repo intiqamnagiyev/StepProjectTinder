@@ -35,6 +35,7 @@
                         <a href="/liked"><i class="fa fa-times hover text-center pt-1"></i></a>
                     </div>
                 </div>
+
                 <div class="row header-two w-100">
                     <div class="col-md-6 options-left pl-1">
                         <i class="fa fa-video-camera mr-3"></i>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="chat-content">
+            <div class="chat-content" >
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
                         <#list messages as message>

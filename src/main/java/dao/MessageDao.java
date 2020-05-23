@@ -55,4 +55,15 @@ public class MessageDao implements DaoMessage<Message> {
         }
 
     }
+
+    @Override
+    public void reset() {
+        final PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(SqlQuery.RESET_MESSAGES);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw new RuntimeException();
+        }
+    }
 }

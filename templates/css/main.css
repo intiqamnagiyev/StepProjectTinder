@@ -22,6 +22,8 @@
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  overflow-y:scroll ;
+  max-height: 500px;
 }
 
 .row-space {

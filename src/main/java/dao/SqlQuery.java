@@ -36,4 +36,6 @@ public class SqlQuery {
             "users where id= ?";
 
 
+    public static final String RESET_MESSAGES = " truncate messages ";
+    public static final String RESET_LIKED_TABLE = " truncate liked  ";
 }

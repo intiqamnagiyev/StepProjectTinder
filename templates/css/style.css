@@ -58,6 +58,8 @@ i {  vertical-align: middle; }
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  overflow-y:scroll ;
+  max-height: 500px;
 }
 
 .panel-default {
@@ -103,6 +105,8 @@ i {  vertical-align: middle; }
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y:scroll ;
+  max-height: 500px;
 }
 
 .chat li
@@ -110,6 +114,8 @@ i {  vertical-align: middle; }
   margin-bottom: 10px;
   padding-bottom: 5px;
   border-bottom: 1px dotted #B3A9A9;
+  overflow-y:scroll ;
+  max-height: 500px;
 }
 
 .chat li.left .chat-body
@@ -294,8 +300,7 @@ input:focus{
   color: #000;
 }
 .chats{
-
-  overflow-x: scroll;
+  overflow-y: scroll;
   overflow-x: hidden;
   background: #ECEFF1;
   position: relative;
@@ -363,6 +368,13 @@ input:focus{
 .msg-box input{
   font-size: 14px;
 }
+
+.p-0{
+  overflow-y:auto;
+  overflow-x:hidden;
+  max-height: 300px;
+}
+
 .msg-box input:focus{
   outline: none;
 }

@@ -19,4 +19,8 @@ public class MessageService {
    public List<Message> getAll(long fromId, long toId){
       return daoMessage.getAll(fromId, toId);
     }
+
+    public void reset() {
+        daoMessage.reset();
+    }
 }

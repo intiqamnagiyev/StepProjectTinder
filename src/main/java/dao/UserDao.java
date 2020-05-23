@@ -147,5 +147,15 @@ public class UserDao implements DAOUser<User> {
 
     }
 
+    @Override
+    public void reset() {
+        final PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(SqlQuery.RESET_LIKED_TABLE);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw new RuntimeException();
+        }
+    }
 }
 
