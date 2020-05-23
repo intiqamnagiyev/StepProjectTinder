@@ -30,8 +30,7 @@ public class LikedServlet extends HttpServlet {
                     engine.render("people-list.ftl", data, resp);
                 } else resp.sendRedirect("/users/");
             }catch (Exception e){
-                //todo loggin
-                //redirect error page (Internal server error, Not Found, Forbidden)
+
             }
 
 

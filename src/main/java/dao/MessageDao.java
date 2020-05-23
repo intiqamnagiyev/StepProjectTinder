@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Message;
+import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
 public class MessageDao implements DaoMessage<Message> {
     private final Connection connection;
 
-    public MessageDao(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public List<Message> getAll(long fromId, long toId) {

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+
 public class LoginFilter implements Filter {
     private final UserService userService;
 
@@ -31,7 +32,8 @@ public class LoginFilter implements Filter {
 
 
         if (request.getMethod().equalsIgnoreCase("POST")) {
-            final Optional<User> userWithEmail = userService.getUserByEmail(request.getParameter("email"));
+            final String email = request.getParameter("email");
+            final Optional<User> userWithEmail = userService.getUserByEmail(email);
 
 
             if (userWithEmail.isPresent() && userWithEmail.get().getPassword().equalsIgnoreCase(request.getParameter("password"))) {

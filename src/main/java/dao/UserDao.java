@@ -1,6 +1,7 @@
 package dao;
 
 import entity.User;
+import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,13 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class UserDao implements DAOUser<User> {
     private final Connection connection;
-
-    public UserDao(Connection connection) {
-        this.connection = connection;
-    }
-
 
     @Override
     public void save(User user) {

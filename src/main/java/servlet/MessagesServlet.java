@@ -2,6 +2,7 @@ package servlet;
 
 import entity.Message;
 import entity.User;
+import lombok.AllArgsConstructor;
 import service.MessageService;
 import service.UserService;
 
@@ -13,16 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class MessagesServlet extends HttpServlet {
     private final TemplateEngine engine;
     private final MessageService messageService;
     private final UserService userService;
-
-    public MessagesServlet(TemplateEngine engine, MessageService messageService, UserService userService) {
-        this.engine = engine;
-        this.messageService = messageService;
-        this.userService = userService;
-    }
 
 
     @Override

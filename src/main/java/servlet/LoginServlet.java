@@ -1,13 +1,14 @@
 package servlet;
 
-import javax.servlet.annotation.WebServlet;
+import lombok.extern.log4j.Log4j2;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.stream.Collectors;
 
-@WebServlet(name ="LoginServlet", value = {"/login/*","/"})
+
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -25,7 +26,6 @@ public class LoginServlet extends HttpServlet {
         for(Cookie c: cookies){
             System.out.printf("name:%s, value:%s\n",c.getName(), c.getValue());
         }*/
-
         resp.sendRedirect("/me");
     }
 }

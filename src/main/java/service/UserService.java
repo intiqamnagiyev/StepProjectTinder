@@ -2,17 +2,16 @@ package service;
 
 import dao.DAOUser;
 import entity.User;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class UserService {
     private final DAOUser<User> dao;
 
-    public UserService(DAOUser<User> dao) {
-        this.dao = dao;
-    }
 
     public void save(User user) {
         dao.save(user);

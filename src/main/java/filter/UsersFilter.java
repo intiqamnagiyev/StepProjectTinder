@@ -10,17 +10,17 @@ import java.io.IOException;
 public class UsersFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig)  {
-        
+    public void init(FilterConfig filterConfig) {
+
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (Session.getUser()!=null){
+        if (Session.getUser() != null) {
             filterChain.doFilter(servletRequest, servletResponse);
-        }else  response.sendRedirect("/login");
+        } else response.sendRedirect("/login");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package servlet;
 
 import entity.User;
+import lombok.AllArgsConstructor;
 import service.UserService;
 
 import javax.servlet.http.HttpServlet;
@@ -9,15 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
-
+@AllArgsConstructor
 public class UsersServlet extends HttpServlet {
     private final UserService userService;
     private final TemplateEngine engine;
 
-    public UsersServlet(UserService userService, TemplateEngine engine) {
-        this.userService = userService;
-        this.engine = engine;
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -27,6 +24,7 @@ public class UsersServlet extends HttpServlet {
         Optional<User> optionalUser = userService.getUserToShow(Session.getUser().getId());
 
         if (!optionalUser.isPresent()) {
+
             resp.sendRedirect("/liked/");
         } else {
             final User user = optionalUser.get();

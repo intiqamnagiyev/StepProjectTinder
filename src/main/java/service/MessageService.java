@@ -2,15 +2,13 @@ package service;
 
 import dao.DaoMessage;
 import entity.Message;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
-
+@AllArgsConstructor
 public class MessageService {
     private final DaoMessage<Message> daoMessage;
 
-    public MessageService(DaoMessage<Message> daoMessage) {
-        this.daoMessage = daoMessage;
-    }
 
     public void  save(String content, long from, long to){
 

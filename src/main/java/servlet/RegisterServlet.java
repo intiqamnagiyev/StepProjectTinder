@@ -1,6 +1,7 @@
 package servlet;
 
 import entity.User;
+import lombok.AllArgsConstructor;
 import service.UserService;
 
 import javax.servlet.http.HttpServlet;
@@ -9,12 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class RegisterServlet extends HttpServlet {
     private final UserService userService;
 
-    public RegisterServlet(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

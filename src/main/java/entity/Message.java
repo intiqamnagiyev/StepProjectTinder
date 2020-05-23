@@ -15,7 +15,6 @@ public class Message {
     private String message;
 
 
-
     public Message(long fromId, long toId, String message) {
         this.fromId = fromId;
         this.toId = toId;
